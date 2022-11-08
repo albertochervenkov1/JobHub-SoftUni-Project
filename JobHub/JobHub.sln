@@ -5,6 +5,10 @@ VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobHub", "JobHub\JobHub.csproj", "{E7925BEE-9C44-4B43-9984-60F16773FDB5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobHub.Infrastructure", "JobHub.Data\JobHub.Infrastructure.csproj", "{DA451F17-B1C3-4A69-8A2B-7BD82AC85ED6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobHub.Core", "JobHub.Core\JobHub.Core.csproj", "{29B2508C-2F2E-47C6-AF47-FB57AF492398}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{E7925BEE-9C44-4B43-9984-60F16773FDB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7925BEE-9C44-4B43-9984-60F16773FDB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7925BEE-9C44-4B43-9984-60F16773FDB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA451F17-B1C3-4A69-8A2B-7BD82AC85ED6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA451F17-B1C3-4A69-8A2B-7BD82AC85ED6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA451F17-B1C3-4A69-8A2B-7BD82AC85ED6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA451F17-B1C3-4A69-8A2B-7BD82AC85ED6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29B2508C-2F2E-47C6-AF47-FB57AF492398}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29B2508C-2F2E-47C6-AF47-FB57AF492398}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29B2508C-2F2E-47C6-AF47-FB57AF492398}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29B2508C-2F2E-47C6-AF47-FB57AF492398}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
