@@ -87,7 +87,7 @@ namespace JobHub.Controllers
                 return View(model);
             }
 
-            var user = await userManager.FindByNameAsync(model.UserName);
+            var user = await userManager.FindByNameAsync(model.Email);
 
             if (user != null)
             {
