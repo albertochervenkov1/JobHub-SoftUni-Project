@@ -1,4 +1,7 @@
+using JobHub.Core.Contracts;
+using JobHub.Core.Services;
 using JobHub.Infrastructure.Data;
+using JobHub.Infrastructure.Data.Common;
 using JobHub.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +22,11 @@ builder.Services.AddDefaultIdentity<User>(options =>
         options.User.RequireUniqueEmail = true;
     })
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IRepository, Repository>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 var app = builder.Build();
 
