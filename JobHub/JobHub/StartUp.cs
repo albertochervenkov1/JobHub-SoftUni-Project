@@ -27,6 +27,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<ICompanyService, CompanyService>();
 
 var app = builder.Build();
 

@@ -29,6 +29,9 @@ namespace JobHub.Infrastructure.Data.Models
         [StringLength(CompanyConstraints.PHONE_NUMBER_MAX_LENGTH)]
         public string PhoneNumber { get; set; } = null!;
 
+        [Required] 
+        public string Description { get; set; } = null!;
+
         [Required]
         public string UserId { get; set; } = null!;
 
