@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using JobHub.Core.Models.Category;
+using JobHub.Core.Models.Company;
 
 namespace JobHub.Core.Contracts
 {
     public interface ICompanyService
     {
-        Task Create(AddCompanyViewModel model);
-        Task<bool> ExistsById(string userId);
+        Task Create(AddCompanyViewModel model,string userId);
+        //Task<bool> ExistsById(string userId);
         Task<bool> UserWithPhoneNumberExists(string phoneNumber);
+        Task<IEnumerable<CompanyViewModel>> GetMineAsync(string userId);
     }
 }

@@ -16,5 +16,7 @@ namespace JobHub.Infrastructure.Data.Models
 
         [StringLength(UserConstraints.LAST_NAME_MAX_LENGTH)]
         public string LastName { get; set; } = null!;
+
+        public ICollection<UserCompany> UserCompanies { get; set; } = new List<UserCompany>();
     }
 }

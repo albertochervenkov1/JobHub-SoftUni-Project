@@ -14,5 +14,17 @@ namespace JobHub.Infrastructure.Data
         public DbSet<Company> Companies { get; set; } = null!;
         public DbSet<Category> Categories { get; set; } = null!;
         public DbSet<Job> Jobs { get; set; } = null!;
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<UserCompany>()
+                .HasKey(x => new
+                {
+                    x.UserId,
+                    x.CompanyId
+                });
+
+            base.OnModelCreating(builder);
+        }
     }
 }

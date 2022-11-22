@@ -31,13 +31,7 @@ namespace JobHub.Infrastructure.Data.Models
 
         [Required] 
         public string Description { get; set; } = null!;
-
-        [Required]
-        public string UserId { get; set; } = null!;
-
-        [ForeignKey(nameof(UserId))]
-        public User User { get; set; } = null!;
-
+        
         public ICollection<Job> Jobs { get; set; }
     }
 }

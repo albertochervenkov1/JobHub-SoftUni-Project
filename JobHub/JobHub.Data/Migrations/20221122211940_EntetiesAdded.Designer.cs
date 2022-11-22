@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobHub.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221116210918_CompanyUpdated")]
-    partial class CompanyUpdated
+    [Migration("20221122211940_EntetiesAdded")]
+    partial class EntetiesAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -67,13 +67,7 @@ namespace JobHub.Infrastructure.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Companies");
                 });
@@ -190,6 +184,21 @@ namespace JobHub.Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("JobHub.Infrastructure.Data.Models.UserCompany", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "CompanyId");
+
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("UserCompany");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -329,17 +338,6 @@ namespace JobHub.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("JobHub.Infrastructure.Data.Models.Company", b =>
-                {
-                    b.HasOne("JobHub.Infrastructure.Data.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("JobHub.Infrastructure.Data.Models.Job", b =>
                 {
                     b.HasOne("JobHub.Infrastructure.Data.Models.Category", "Category")
@@ -357,6 +355,25 @@ namespace JobHub.Infrastructure.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("JobHub.Infrastructure.Data.Models.UserCompany", b =>
+                {
+                    b.HasOne("JobHub.Infrastructure.Data.Models.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("JobHub.Infrastructure.Data.Models.User", "User")
+                        .WithMany("UserCompanies")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -418,6 +435,11 @@ namespace JobHub.Infrastructure.Migrations
             modelBuilder.Entity("JobHub.Infrastructure.Data.Models.Company", b =>
                 {
                     b.Navigation("Jobs");
+                });
+
+            modelBuilder.Entity("JobHub.Infrastructure.Data.Models.User", b =>
+                {
+                    b.Navigation("UserCompanies");
                 });
 #pragma warning restore 612, 618
         }

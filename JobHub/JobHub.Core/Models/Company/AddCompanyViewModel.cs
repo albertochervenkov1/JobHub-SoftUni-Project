@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JobHub.Core.Models.Category
+namespace JobHub.Core.Models.Company
 {
     public class AddCompanyViewModel
     {
@@ -23,7 +23,5 @@ namespace JobHub.Core.Models.Category
 
         [Required]
         public string Description { get; set; } = null!;
-       
-        public string? UserId { get; set; }
     }
 }

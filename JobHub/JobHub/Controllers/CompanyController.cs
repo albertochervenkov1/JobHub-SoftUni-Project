@@ -1,6 +1,6 @@
 ﻿using JobHub.Core.Constants;
 using JobHub.Core.Contracts;
-using JobHub.Core.Models.Category;
+using JobHub.Core.Models.Company;
 using JobHub.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,20 +16,16 @@ namespace JobHub.Controllers
             companyService= _companyService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var userId = User.Id();
+            var model = await companyService.GetMineAsync(userId);
+            return View(model);
         }
 
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            if (await companyService.ExistsById(User.Id()))
-            {
-                TempData[MessageConstant.ErrorMessage] = "You already have a company";
-
-                return RedirectToAction("Index", "Home");
-            }
 
             var model = new AddCompanyViewModel();
 
@@ -39,20 +35,12 @@ namespace JobHub.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(AddCompanyViewModel model)
         {
-            model.UserId = User.Id();
+            var userId = User.Id();
 
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
-
-            if (await companyService.ExistsById(model.UserId))
-            {
-                TempData[MessageConstant.ErrorMessage] = "You already have a company";
-
-                return RedirectToAction("Index", "Home");
-            }
-
             if (await companyService.UserWithPhoneNumberExists(model.PhoneNumber))
             {
                 TempData[MessageConstant.ErrorMessage] = "A company with this phone number already exists";
@@ -60,11 +48,15 @@ namespace JobHub.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            
-
-            await companyService.Create(model);
+            await companyService.Create(model,userId);
 
             return RedirectToAction("Index", "Company");
+        }
+
+        [HttpGet]
+        public IActionResult Details()
+        {
+            return View();
         }
     }
 }
