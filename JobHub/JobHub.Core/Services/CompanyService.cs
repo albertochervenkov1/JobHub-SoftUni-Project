@@ -8,6 +8,7 @@ using JobHub.Core.Models.Company;
 using JobHub.Infrastructure.Data.Common;
 using JobHub.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 
 namespace JobHub.Core.Services
 {
@@ -77,5 +78,32 @@ namespace JobHub.Core.Services
                     Description = uc.Company.Description
                 });
         }
+
+        public async Task<CompanyViewModel> CompanyDetailsById(int id)
+        {
+            return await repo.AllReadonly<Company>()
+                .Where(c => c.Id == id)
+                .Select(c => new CompanyViewModel()
+                {
+                    Name = c.Name,
+                    Description = c.Description,
+                    Address = c.Address,
+                    Id = c.Id,
+                    Jobs = c.Jobs
+                }).FirstAsync();
+        }
+
+        //public async Task<IEnumerable<CompanyViewModel>> GetCompanyAsync(int companyId)
+        //{
+        //    return await repo.All<Company>()
+        //        .Select(c => new CompanyViewModel()
+        //        {
+        //            Name = c.Name,
+        //            Description = c.Description,
+        //            Address = c.Address,
+        //            Id = c.Id,
+        //            Jobs = c.Jobs
+        //        }).ToListAsync();
+        //}
     }
 }

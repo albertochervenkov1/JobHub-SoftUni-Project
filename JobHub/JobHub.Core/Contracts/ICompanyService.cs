@@ -10,8 +10,8 @@ namespace JobHub.Core.Contracts
     public interface ICompanyService
     {
         Task Create(AddCompanyViewModel model,string userId);
-        //Task<bool> ExistsById(string userId);
         Task<bool> UserWithPhoneNumberExists(string phoneNumber);
         Task<IEnumerable<CompanyViewModel>> GetMineAsync(string userId);
+        Task<CompanyViewModel> CompanyDetailsById(int id);
     }
 }

@@ -2,6 +2,7 @@
 using JobHub.Core.Contracts;
 using JobHub.Core.Models.Company;
 using JobHub.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -16,15 +17,24 @@ namespace JobHub.Controllers
             companyService= _companyService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var userId = User.Id();
             var model = await companyService.GetMineAsync(userId);
+
             return View(model);
         }
 
+        [HttpPost]
+        public  IActionResult Index(CompanyViewModel model)
+        {
+            var id = model.Id;
+            return RedirectToAction(nameof(Details),new {id});
+        }
+
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
 
             var model = new AddCompanyViewModel();
@@ -53,10 +63,11 @@ namespace JobHub.Controllers
             return RedirectToAction("Index", "Company");
         }
 
-        [HttpGet]
-        public IActionResult Details()
+        
+        public async Task<IActionResult> Details(int id)
         {
-            return View();
+            var model = await companyService.CompanyDetailsById(id);
+            return View(model);
         }
     }
 }
