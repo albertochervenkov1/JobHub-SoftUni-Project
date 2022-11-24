@@ -69,5 +69,14 @@ namespace JobHub.Controllers
             var model = await companyService.CompanyDetailsById(id);
             return View(model);
         }
+        public async Task<IActionResult> Delete(int id)
+        {
+            return View();
+        }
+        public async Task<IActionResult> Edit(int id)
+        {
+            return View();
+        }
+
     }
 }

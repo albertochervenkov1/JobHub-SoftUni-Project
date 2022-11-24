@@ -89,7 +89,9 @@ namespace JobHub.Core.Services
                     Description = c.Description,
                     Address = c.Address,
                     Id = c.Id,
-                    Jobs = c.Jobs
+                    Jobs = c.Jobs,
+                    Email = c.Email,
+                    PhoneNumber = c.PhoneNumber
                 }).FirstAsync();
         }
 

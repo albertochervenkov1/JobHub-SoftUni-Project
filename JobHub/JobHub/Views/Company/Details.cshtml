@@ -1,6 +1,81 @@
 ﻿@model CompanyViewModel
+@{
+    ViewBag.Title = $"{Model.Name} Details";
+}
 
-
-
-<h2 class="text-center">@Model.Name</h2>
+<h2 class="text-center">@ViewBag.Title</h2>
 <hr />
+
+<div class="container" style="display:inline">
+    <div class="row">
+        <div class="col-4">
+            <img class="card-img-top" style="width: 20rem;"
+                 src="~/companyIcon.png" alt="House Image">
+        </div>
+        <div class="card col-4 border-0">
+            <p style="font-size:25px;"><u>@Model.Name</u></p>
+            <p>@Model.Description</p>
+            <div class="form-inline">
+                <a class="btn btn-warning" asp-controller="Company" asp-action="Edit"
+                   asp-route-id="@Model.Id">Edit</a>
+                <a class="ml-2 btn btn-danger" asp-controller="Company" asp-action="Delete"
+                   asp-route-id="@Model.Id">Delete</a>
+            </div>
+            <p></p>
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Contact Info</h5>
+                    <p class="card-text">Email:  @Model.Email</p>
+                    <p class="card-text">Phone Number: @Model.PhoneNumber</p>
+                    <p>Located in: <b>@Model.Address</b></p>
+                </div>
+            </div>
+        </div>
+        <div class="card col-4 border-0" style="align-items: center">
+            <h2>Add Job</h2>
+            
+            <a asp-controller="Job" asp-action="Add"
+               asp-route-id="@Model.Id"> <img class="card-img-top" style="width: 18rem;"
+                    src="~/job.png" alt="Job Image"> 
+            </a>
+        </div>
+
+    </div>
+</div>
+<hr/>
+
+@if (!@Model.Jobs.Any())
+{
+    <h2>You do not have jobs offers in you company.</h2>
+    <a class="btn btn-success" style="width: 400px" asp-controller="Job" asp-action="Add"
+       asp-route-id="@Model.Id">Add</a>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Job Title</th>
+            <th scope="col">Job</th>
+            <th scope="col">Job</th>
+        </tr>
+        </thead>
+    
+        <tbody>
+        @foreach (var job in Model.Jobs)
+        {
+            var counter = 1;
+            <tr>
+                <th scope="row">@counter</th>
+                <td>@job.Title</td>
+                <td>@job.CreatedDate</td>
+                <td></td>
+            </tr>
+            counter++;
+        }
+            
+
+        </tbody>
+    </table>
+}

@@ -15,6 +15,7 @@ namespace JobHub.Core.Models.Company
         public string Description { get; set; } = null!;
         public string? Address { get; set; }
         public string PhoneNumber { get; set; } = null!;
+        public string Email { get; set; } = null!;
 
         public ICollection<Infrastructure.Data.Models.Job> Jobs { get; set; } =
             new List<Infrastructure.Data.Models.Job>();
