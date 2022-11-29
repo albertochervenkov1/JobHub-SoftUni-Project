@@ -4,6 +4,7 @@ using JobHub.Core.Models.Company;
 using JobHub.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 
 namespace JobHub.Controllers
@@ -14,7 +15,7 @@ namespace JobHub.Controllers
 
         public CompanyController(ICompanyService _companyService)
         {
-            companyService= _companyService;
+            companyService = _companyService;
         }
 
         [HttpGet]
@@ -27,10 +28,10 @@ namespace JobHub.Controllers
         }
 
         [HttpPost]
-        public  IActionResult Index(CompanyViewModel model)
+        public IActionResult Index(CompanyViewModel model)
         {
             var id = model.Id;
-            return RedirectToAction(nameof(Details),new {id});
+            return RedirectToAction(nameof(Details), new { id });
         }
 
         [HttpGet]
@@ -51,6 +52,7 @@ namespace JobHub.Controllers
             {
                 return View(model);
             }
+
             if (await companyService.UserWithPhoneNumberExists(model.PhoneNumber))
             {
                 TempData[MessageConstant.ErrorMessage] = "A company with this phone number already exists";
@@ -58,25 +60,54 @@ namespace JobHub.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            await companyService.Create(model,userId);
+            await companyService.Create(model, userId);
 
             return RedirectToAction("Index", "Company");
         }
 
-        
+
         public async Task<IActionResult> Details(int id)
         {
             var model = await companyService.CompanyDetailsById(id);
             return View(model);
         }
-        public async Task<IActionResult> Delete(int id)
-        {
-            return View();
-        }
+
+        [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            return View();
+            var company = await companyService.CompanyDetailsById(id);
+
+            var model = new CompanyViewModel()
+            {
+                Id = company.Id,
+                Name = company.Name,
+                Address = company.Address,
+                PhoneNumber = company.PhoneNumber,
+                Description = company.Description,
+                Email = company.Email
+            };
+
+            return View(model);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, CompanyViewModel model)
+        {
+            if (id != model.Id)
+            {
+                return RedirectToPage("/Account/AccessDenied", new { area = "Identity" });
+            }
+
+            if (ModelState.IsValid == false)
+            {
+                return View(model);
+            }
+
+            await companyService.Edit(model.Id, model);
+
+            return RedirectToAction(nameof(Details), new { id });
+
+
+        }
     }
 }

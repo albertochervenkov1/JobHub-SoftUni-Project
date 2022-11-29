@@ -3,6 +3,8 @@
     ViewBag.Title = $"{Model.Name} Details";
 }
 
+
+
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
@@ -18,8 +20,7 @@
             <div class="form-inline">
                 <a class="btn btn-warning" asp-controller="Company" asp-action="Edit"
                    asp-route-id="@Model.Id">Edit</a>
-                <a class="ml-2 btn btn-danger" asp-controller="Company" asp-action="Delete"
-                   asp-route-id="@Model.Id">Delete</a>
+                
             </div>
             <p></p>
             <div class="card" style="width: 18rem;">

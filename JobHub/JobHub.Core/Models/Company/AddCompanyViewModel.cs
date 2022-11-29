@@ -22,6 +22,10 @@ namespace JobHub.Core.Models.Company
         public string PhoneNumber { get; set; } = null!;
 
         [Required]
+        [EmailAddress]
+        public string Email { get; set; } = null!;
+
+        [Required]
         public string Description { get; set; } = null!;
     }
 }

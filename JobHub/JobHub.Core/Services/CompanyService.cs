@@ -39,6 +39,7 @@ namespace JobHub.Core.Services
                 Address = model.Address,
                 PhoneNumber = model.PhoneNumber,
                 Description = model.Description,
+                Email = model.Email
             };
             await repo.AddAsync(company);
             user.UserCompanies.Add(new UserCompany()
@@ -95,17 +96,19 @@ namespace JobHub.Core.Services
                 }).FirstAsync();
         }
 
-        //public async Task<IEnumerable<CompanyViewModel>> GetCompanyAsync(int companyId)
-        //{
-        //    return await repo.All<Company>()
-        //        .Select(c => new CompanyViewModel()
-        //        {
-        //            Name = c.Name,
-        //            Description = c.Description,
-        //            Address = c.Address,
-        //            Id = c.Id,
-        //            Jobs = c.Jobs
-        //        }).ToListAsync();
-        //}
+        public async Task Edit(int id, CompanyViewModel model)
+        {
+            var company = await repo.GetByIdAsync<Company>(id);
+
+            company.Name = model.Name;
+            company.Description = model.Description;
+            company.PhoneNumber = model.PhoneNumber;
+            company.Address = model.Address;
+            company.Email=model.Email;
+
+            await repo.SaveChangesAsync();
+        }
+
+       
     }
 }

@@ -13,5 +13,6 @@ namespace JobHub.Core.Contracts
         Task<bool> UserWithPhoneNumberExists(string phoneNumber);
         Task<IEnumerable<CompanyViewModel>> GetMineAsync(string userId);
         Task<CompanyViewModel> CompanyDetailsById(int id);
+        Task Edit(int id, CompanyViewModel model);
     }
 }
