@@ -48,6 +48,7 @@ namespace JobHub.Controllers
         [HttpGet]
         public IActionResult Preview(AddJobViewModel model)
         {
+            
             return View(model);
         }
 
