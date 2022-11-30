@@ -22,20 +22,14 @@ namespace JobHub.Core.Services
             repo = _repo;
         }
 
-        public async Task<IEnumerable<CategoryViewModel>> AllCategories()
+        public async Task<IEnumerable<Category>> AllCategories()
         {
-            return await repo.AllReadonly<Category>()
-                .OrderBy(c => c.Label)
-                .Select(c => new CategoryViewModel()
-                {
-                    Id = c.Id,
-                    Label = c.Label
-                })
-                .ToListAsync();
+            return await repo.AllReadonly<Category>().ToListAsync();
+
         }
         public async Task Add(AddJobViewModel model)
         {
-            var datetime = DateTime.Now.ToString();
+            //var datetime = DateTime.Now.ToString(CultureInfo.InvariantCulture);
             var job = new Job()
             {
                 Title = model.Title,
@@ -43,8 +37,7 @@ namespace JobHub.Core.Services
                 Description = model.Description,
                 Salary = model.Salary,
                 CompanyId = model.CompanyId,
-                CreatedDate = DateTime.ParseExact(datetime, "dd MM yyyy HH:mm:ss",CultureInfo.InvariantCulture)
-
+                CreatedDate = DateTime.ParseExact(DateTime.Now.ToString(CultureInfo.InvariantCulture), "MM/dd/yyyy HH:mm:ss",CultureInfo.InvariantCulture)
             };
 
             await repo.AddAsync(job);

@@ -34,6 +34,7 @@ namespace JobHub.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(AddJobViewModel model)
         {
+            model.JobCategories = await jobService.AllCategories();
 
             if (!ModelState.IsValid)
             {
@@ -46,17 +47,17 @@ namespace JobHub.Controllers
         }
 
         [HttpGet]
-        public IActionResult Preview(AddJobViewModel model)
+        public async Task<IActionResult> Preview(AddJobViewModel model)
         {
-            
+            model.JobCategories = await jobService.AllCategories();
             return View(model);
         }
 
+        [ActionName("Preview")]
         [HttpPost]
         public async Task<IActionResult> AddPreview(AddJobViewModel model)
         {
             await jobService.Add(model);
-
             return RedirectToAction(nameof(Index));
         }
 

@@ -9,29 +9,32 @@
 
 <div class="row">
     <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
-        <form asp-action="Add" method="post">
+        <form asp-action="Preview" method="post">
             <div class="mb-3">
                 <label asp-for="@Model.Title" class="form-label">Job Title</label>
+                <input asp-for="@Model.Title" class="form-control" aria-required="true" type="hidden" />
                 <h3>@Model.Title</h3>
             </div>
             <div class="mb-3">
                 <label asp-for="@Model.Description" class="form-label">Description*</label>
+                <input asp-for="@Model.Description" class="form-control" aria-required="true" type="hidden" />
                 <h3>@Model.Description</h3>
             </div>
             <div class="mb-3">
                 <label asp-for="@Model.Salary" class="form-label">Salary</label>
+                <input asp-for="@Model.Salary" class="form-control" aria-required="true" type="hidden" />
                 <h3>@Model.Salary</h3>
             </div>
             <div class="mb-3">
                 <label asp-for="@Model.CategoryId" class="form-label">Category</label>
-               @* <select asp-for="@Model.CategoryId" class="form-control">
-                    @foreach (var category in Model.JobCategories)
-                    {
-                        <option value="@category.Id">@category.Label</option>
-                    }
-                </select>
-                <span asp-validation-for="CategoryId" class="text-danger"></span>*@
-                <h3>@Model.JobCategories.Where(c=>c.Id==@Model.CategoryId).Select(c=>c.Label).ToString()</h3>
+                <input asp-for="@Model.CategoryId" class="form-control" aria-required="true" type="hidden" />
+                   @foreach (var category in Model.JobCategories)
+                   {
+                       if (category.Id==Model.CategoryId)
+                       {
+                           <h3>@category.Label</h3>
+                       }
+                   }
             </div>
             <div class="mb-3">
                 <input class="btn btn-primary" type="submit" value="Add" />

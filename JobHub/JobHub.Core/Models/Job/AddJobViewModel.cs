@@ -22,9 +22,9 @@ namespace JobHub.Core.Models.Job
         public int CategoryId { get; set; }
         public decimal? Salary { get; set; }
 
-        public DateTime CreatedDate { get; set; }
+        //public string CreatedDate { get; set; } = null!;
         public int CompanyId { get; set; }
 
-        public IEnumerable<CategoryViewModel> JobCategories { get; set; } = new List<CategoryViewModel>();
+        public IEnumerable<Infrastructure.Data.Models.Category> JobCategories { get; set; } = new List<Infrastructure.Data.Models.Category>();
     }
 }
