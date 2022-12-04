@@ -146,5 +146,10 @@ namespace JobHub.Controllers
             return RedirectToAction("Details", "Company", new { id });
         }
 
+        public IActionResult JobDetails(int id)
+        {
+            var model = jobService.DetailedJobById(id);
+            return View(model);
+        }
     }
 }

@@ -10,6 +10,7 @@ namespace JobHub.Core.Models.Job
 {
     public class AllJobsViewModel
     {
+        public int Id { get; set; }
         public string Title { get; set; } = null!;
         public string Description { get; set; } = null!;
 
@@ -24,5 +25,8 @@ namespace JobHub.Core.Models.Job
 
         public IEnumerable<Infrastructure.Data.Models.Category> Categories { get; set; } =
             new List<Infrastructure.Data.Models.Category>();
+
+        public string Category { get; set; } = null!;
+        public string Company { get; set; } = null!;
     }
 }

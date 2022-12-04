@@ -139,17 +139,38 @@ namespace JobHub.Core.Services
             result.Jobs = await jobs
                 .Select(j => new AllJobsViewModel()
                 {
+                    Id = j.Id,
                     Title = j.Title,
                     Description = j.Description,
                     City = j.City,
                     Salary = j.Salary,
                     CompanyId = j.CompanyId,
-                    CategoryId = j.CategoryId
+                    CategoryId = j.CategoryId,
+                    Category = j.Category.Label,
+                    Company = j.Company.Name
                 }).ToListAsync();
 
             result.TotalJobsCount = await jobs.CountAsync();
 
             return result;
+        }
+
+        public async Task<AllJobsViewModel> DetailedJobById(int id)
+        {
+            return await repo.AllReadonly<Job>()
+                .Where(j => j.Id == id)
+                .Select(j => new AllJobsViewModel()
+                {
+                    Id = j.Id,
+                    Title = j.Title,
+                    Description = j.Description,
+                    City = j.City,
+                    Salary = j.Salary,
+                    CompanyId = j.CompanyId,
+                    CategoryId = j.CategoryId,
+                    Category = j.Category.Label,
+                    Company = j.Company.Name
+                }).FirstAsync();
         }
     }
 }

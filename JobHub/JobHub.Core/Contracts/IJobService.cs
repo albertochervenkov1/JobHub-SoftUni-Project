@@ -25,5 +25,7 @@ namespace JobHub.Core.Contracts
             string? searchTerm = null,
             JobSorting sorting=JobSorting.Newest,
             int jobPerPages=10);
+
+        Task<AllJobsViewModel> DetailedJobById(int id);
     }
 }
