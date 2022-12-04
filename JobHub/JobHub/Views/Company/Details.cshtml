@@ -5,14 +5,18 @@
 
 
 
-<h2 class="text-center">@ViewBag.Title</h2>
+<div style="display: inline">
+    <a class="btn btn-secondary btn-lg" asp-controller="Company" asp-action="BackToCompanies"
+       >Back to My Companies</a>
+    <h2 class="text-center">@ViewBag.Title</h2>
+</div>
 <hr />
 
 <div class="container" style="display:inline">
     <div class="row">
         <div class="col-4">
             <img class="card-img-top" style="width: 20rem;"
-                 src="~/companyIcon.png" alt="House Image">
+                 src="~/companyIcon.png" alt="Company Image">
         </div>
         <div class="card col-4 border-0">
             <p style="font-size:25px;"><u>@Model.Name</u></p>
@@ -53,13 +57,14 @@
 }
 else
 {
-    <table class="table table-striped">
+    <table class="table table-striped table-dark">
         <thead>
         <tr>
             <th scope="col">#</th>
             <th scope="col">Job Title</th>
-            <th scope="col">Job</th>
-            <th scope="col">Job</th>
+            <th scope="col">Created on</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
         </tr>
         </thead>
     
@@ -71,12 +76,15 @@ else
                 <th scope="row">@counter</th>
                 <td>@job.Title</td>
                 <td>@job.CreatedDate</td>
-                <td></td>
+                <td>
+                        <a asp-controller="Job" asp-action="Details" asp-route-id="@job.Id"
+                   class="btn btn-info">Details</a>
+                </td>
+                
             </tr>
             counter++;
         }
             
-
         </tbody>
     </table>
 }

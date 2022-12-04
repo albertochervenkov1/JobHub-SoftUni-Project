@@ -105,9 +105,15 @@ namespace JobHub.Controllers
 
             await companyService.Edit(model.Id, model);
 
+
             return RedirectToAction(nameof(Details), new { id });
 
 
+        }
+
+        public IActionResult BackToCompanies(int id)
+        {
+            return RedirectToAction(nameof(Index));
         }
     }
 }

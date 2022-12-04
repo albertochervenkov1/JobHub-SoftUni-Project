@@ -14,5 +14,8 @@ namespace JobHub.Infrastructure.Common
         public const int JOB_DESCRIPTION_MIN_LENGTH = 1;
         public const int JOB_DESCRIPTION_MAX_LENGTH = 5000;
 
+        public const int JOB_CITY_MIN_LENGTH = 3;
+        public const int JOB_CITY_MAX_LENGTH = 50;
+
     }
 }

@@ -109,6 +109,10 @@ namespace JobHub.Core.Services
             await repo.SaveChangesAsync();
         }
 
-       
+        public async Task<bool> CompanyExists(int id)
+        {
+            return await repo.All<Company>()
+                .AnyAsync(a => a.Id==id);
+        }
     }
 }

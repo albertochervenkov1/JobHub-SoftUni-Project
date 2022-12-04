@@ -1,0 +1,43 @@
+﻿@model JobViewModel
+
+@{
+    ViewBag.Title = $"{Model.Title} Details";
+}
+<div style="display: inline">
+    <a class="btn btn-secondary btn-lg" asp-controller="Job" asp-action="BackToCompany"
+       asp-route-id="@Model.CompanyId">Back to Company</a>
+    <h2 class="text-center">@ViewBag.Title</h2>
+</div>
+
+<hr />
+
+<div class="container" style="display:inline">
+    <div class="row">
+        <div class="col-4">
+            <img class="card-img-top" style="width: 20rem;"
+                 src="~/job.png" alt="Job Image">
+        </div>
+        <div class="card col-4 border-0">
+            <p style="font-size:25px;"><u>@Model.Title</u></p>
+            <p>@Model.Description</p>
+            <div class="form-inline">
+                <a class="btn btn-warning" asp-controller="Job" asp-action="Edit"
+                   asp-route-id="@Model.Id">Edit</a>
+                <a class="btn btn-danger" asp-controller="Job" asp-action="Delete"
+                   asp-route-id="@Model.Id">Delete</a>
+            </div>
+            <p></p>
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Job Info</h5>
+                    <p class="card-text">Date Created:  @Model.CreatedDate</p>
+                    <p class="card-text">Salary: @Model.Salary</p>
+                    <p>Located in: <b>@Model.City</b></p>
+                </div>
+            </div>
+        </div>
+        
+
+    </div>
+</div>
+<hr/>

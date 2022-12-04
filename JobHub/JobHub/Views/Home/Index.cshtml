@@ -1,8 +1,24 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewBag.Title = "JobHub";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h1 class="text-center">@ViewBag.Title</h1>
+<hr/>
+
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <a asp-controller="User" asp-action="Login">
+                <img class="card-img-top" style="width: 36rem;"
+                     src="~/job.png" alt="Job Image">
+            </a>
+            
+        </div>
+        <div class="col-6">
+            <a asp-controller="User" asp-action="Login">
+                <img class="card-img-top" style="width: 36rem;"
+                     src="~/companyIcon.png" alt="Company Image">
+            </a>
+        </div>
+    </div>
 </div>

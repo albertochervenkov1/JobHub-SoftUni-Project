@@ -22,6 +22,10 @@ namespace JobHub.Infrastructure.Data.Models
         [StringLength(JobConstraints.JOB_DESCRIPTION_MAX_LENGTH)]
         public string Description { get; set; }= null!;
 
+        [Required]
+        [StringLength(JobConstraints.JOB_CITY_MAX_LENGTH)]
+        public string City { get; set; } = null!;
+
         public int CategoryId { get; set; }
         [ForeignKey(nameof(CategoryId))]
         public Category Category { get; set; } = null!;
