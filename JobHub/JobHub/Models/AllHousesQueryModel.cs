@@ -2,13 +2,13 @@
 {
     public class AllHousesQueryModel
     {
-        public const int HousesPerPage = 3;
+        //public const int HousesPerPage = 3;
 
         public string? Category { get; set; }
 
         public string? SearchTerm { get; set; }
 
-        //public HouseSorting Sorting { get; set; }
+        //public JobSorting Sorting { get; set; }
 
         public int CurrentPage { get; set; } = 1;
 

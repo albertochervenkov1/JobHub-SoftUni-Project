@@ -8,15 +8,15 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace JobHub.Controllers
 {
-    public class JobController:BaseController
+    public class JobController : BaseController
     {
         private readonly IJobService jobService;
         private readonly ICompanyService companyService;
         public JobController(IJobService _jobService,
             ICompanyService _companyService)
         {
-            jobService= _jobService;
-            companyService= _companyService;
+            jobService = _jobService;
+            companyService = _companyService;
         }
         public IActionResult Index()
         {
@@ -25,18 +25,17 @@ namespace JobHub.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> All([FromQuery] AllHousesQueryModel query)
+        public async Task<IActionResult> All([FromQuery] AllJobsQueryModel query)
         {
-            //var result = await houseService.All(
-            //    query.Category,
-            //    query.SearchTerm,
-            //    query.Sorting,
-            //    query.CurrentPage,
-            //    AllHousesQueryModel.HousesPerPage);
+            var result = await jobService.AllJobs(
+                query.Category,
+                query.SearchTerm,
+                query.Sorting,
+                AllJobsQueryModel.JobsPerPage);
 
-            //query.TotalHousesCount = result.TotalHousesCount;
-            //query.Categories = await houseService.AllCategoriesNames();
-            //query.Houses = result.Houses;
+            query.TotalJobsCount = result.TotalJobsCount;
+            query.Categories = await jobService.AllCategoriesLabels();
+            query.Jobs = result.Jobs;
 
             return View(query);
         }
@@ -68,13 +67,13 @@ namespace JobHub.Controllers
 
             if ((await companyService.CompanyExists(model.CategoryId)) == false)
             {
-                ModelState.AddModelError(nameof(model.CompanyId),"Company doesn't exist!");
+                ModelState.AddModelError(nameof(model.CompanyId), "Company doesn't exist!");
             }
 
             await jobService.Add(model);
 
             var id = model.CompanyId;
-            return RedirectToAction("Details","Company",new {id});
+            return RedirectToAction("Details", "Company", new { id });
         }
 
         [HttpGet]
@@ -119,18 +118,18 @@ namespace JobHub.Controllers
             }
 
             await jobService.Edit(model.Id, model);
-            
 
-            return RedirectToAction(nameof(Details),new {id});
+
+            return RedirectToAction(nameof(Details), new { id });
 
 
         }
-        
+
         public async Task<IActionResult> Delete(int id)
         {
             if ((await jobService.Exists(id)) == false)
             {
-                return RedirectToAction("Details","Company");
+                return RedirectToAction("Details", "Company");
             }
 
             var job = jobService.JobById(id);
@@ -139,7 +138,7 @@ namespace JobHub.Controllers
             await jobService.Delete(id);
 
             id = companyId;
-            return RedirectToAction("Details","Company",new {id});
+            return RedirectToAction("Details", "Company", new { id });
         }
 
         public IActionResult BackToCompany(int id)

@@ -13,11 +13,17 @@ namespace JobHub.Core.Contracts
     public interface IJobService
     {
         Task<IEnumerable<Category>> AllCategories();
+        Task<IEnumerable<string>> AllCategoriesLabels();
         Task Add(AddJobViewModel model);
         Task<bool> Exists(int id);
         Task Delete(int id);
         Task<JobViewModel> JobDetailsById(int id);
         Task<Job> JobById(int id);
         Task Edit(int id, JobViewModel model);
+
+        Task<JobQueryModel> AllJobs(string? category = null, 
+            string? searchTerm = null,
+            JobSorting sorting=JobSorting.Newest,
+            int jobPerPages=10);
     }
 }

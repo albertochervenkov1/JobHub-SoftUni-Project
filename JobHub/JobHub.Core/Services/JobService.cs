@@ -28,6 +28,15 @@ namespace JobHub.Core.Services
             return await repo.AllReadonly<Category>().ToListAsync();
 
         }
+
+        public async Task<IEnumerable<string>> AllCategoriesLabels()
+        {
+            return await repo.AllReadonly<Category>()
+                .Select(c => c.Label)
+                .Distinct()
+                .ToListAsync();
+        }
+
         public async Task Add(AddJobViewModel model)
         {
             //var datetime = DateTime.Now.ToString(CultureInfo.InvariantCulture);
@@ -92,6 +101,55 @@ namespace JobHub.Core.Services
             job.City=model.City;
 
             await repo.SaveChangesAsync();
+        }
+
+        public async Task<JobQueryModel> AllJobs(string? category = null, string? searchTerm = null, JobSorting sorting = JobSorting.Newest,
+            int jobPerPages = 10)
+        {
+            var result = new JobQueryModel();
+            var jobs = repo.AllReadonly<Job>();
+
+
+            if (string.IsNullOrEmpty(searchTerm) == false)
+            {
+                searchTerm = $"%{searchTerm.ToLower()}%";
+
+                jobs = jobs
+                    .Where(j => EF.Functions.Like(j.Title.ToLower(), searchTerm) ||
+                                EF.Functions.Like(j.Description.ToLower(), searchTerm) ||
+                                EF.Functions.Like(j.Company.Name.ToLower(), searchTerm) ||
+                                EF.Functions.Like(j.City.ToLower(), searchTerm));
+            }
+
+            if (string.IsNullOrEmpty(category) == false)
+            {
+                jobs = jobs
+                    .Where(h => h.Category.Label == category);
+            }
+
+            jobs = sorting switch
+            {
+                JobSorting.Newest => jobs
+                    .OrderByDescending(j => j.CreatedDate),
+                JobSorting.Oldest => jobs
+                    .OrderBy(j => j.CreatedDate),
+                _ => jobs.OrderByDescending(j => j.Id)
+            };
+
+            result.Jobs = await jobs
+                .Select(j => new AllJobsViewModel()
+                {
+                    Title = j.Title,
+                    Description = j.Description,
+                    City = j.City,
+                    Salary = j.Salary,
+                    CompanyId = j.CompanyId,
+                    CategoryId = j.CategoryId
+                }).ToListAsync();
+
+            result.TotalJobsCount = await jobs.CountAsync();
+
+            return result;
         }
     }
 }
