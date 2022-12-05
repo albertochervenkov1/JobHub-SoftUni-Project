@@ -5,6 +5,7 @@ using JobHub.Extensions;
 using JobHub.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 
 namespace JobHub.Controllers
 {
@@ -146,10 +147,40 @@ namespace JobHub.Controllers
             return RedirectToAction("Details", "Company", new { id });
         }
 
-        public IActionResult JobDetails(int id)
+        [HttpGet]
+        public async Task<IActionResult> JobDetails(int id)
         {
-            var model = jobService.DetailedJobById(id);
+            var model = await jobService.DetailedJobById(id);
             return View(model);
         }
+
+        [HttpPost]
+        public IActionResult UploadFile(IFormFile postedFile)
+        {
+            string fileName = Path.GetFileName(postedFile.FileName);
+            string contentType = postedFile.ContentType;
+            //using (MemoryStream ms = new MemoryStream())
+            //{
+            //    postedFile.CopyTo(ms);
+                
+            //    using (SqlConnection con = new SqlConnection(constr))
+            //    {
+            //        string query = "INSERT INTO tblFiles VALUES (@Name, @ContentType, @Data)";
+            //        using (SqlCommand cmd = new SqlCommand(query))
+            //        {
+            //            cmd.Connection = con;
+            //            cmd.Parameters.AddWithValue("@Name", fileName);
+            //            cmd.Parameters.AddWithValue("@ContentType", contentType);
+            //            cmd.Parameters.AddWithValue("@Data", ms.ToArray());
+            //            con.Open();
+            //            cmd.ExecuteNonQuery();
+            //            con.Close();
+            //        }
+            //    }
+            //}
+
+            return RedirectToAction("Index");
+        }
+
     }
 }

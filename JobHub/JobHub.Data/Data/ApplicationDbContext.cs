@@ -1,6 +1,7 @@
 ﻿using JobHub.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using File = JobHub.Infrastructure.Data.Models.File;
 
 namespace JobHub.Infrastructure.Data
 {
@@ -14,6 +15,7 @@ namespace JobHub.Infrastructure.Data
         public DbSet<Company> Companies { get; set; } = null!;
         public DbSet<Category> Categories { get; set; } = null!;
         public DbSet<Job> Jobs { get; set; } = null!;
+        public DbSet<File> Files { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
