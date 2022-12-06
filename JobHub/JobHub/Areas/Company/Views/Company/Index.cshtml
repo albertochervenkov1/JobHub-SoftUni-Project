@@ -8,7 +8,7 @@
 <hr />
 
 <div class="text-center row">
-    <a asp-controller="Company" asp-action="Create">
+    <a asp-area="Company" asp-controller="Company" asp-action="Create">
         <button class="btn btn-success" style="width: 600px; height: 70px; font-size: 20px; font-weight: bold">Create a Company</button>
     </a>
 </div>
@@ -32,7 +32,7 @@
                 </div>
             
                 <form>
-                    <a asp-controller="Company" asp-action="Details" asp-route-id="@company.Id"
+                    <a asp-area="Company" asp-controller="Company" asp-action="Details" asp-route-id="@company.Id"
                        class="btn btn-success">Details</a>
                 </form>
             </div>
@@ -41,4 +41,3 @@
     
 
 </div>
-

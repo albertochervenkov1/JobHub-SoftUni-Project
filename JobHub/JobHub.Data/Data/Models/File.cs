@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace JobHub.Infrastructure.Data.Models
 {
-	public class File
+	public class CvFile
 	{
 		[Key]
         public int Id { get; set; }
 
         public byte[] Name { get; set; } = null!;
-        public int UserId { get; set; }
+        public string UserId { get; set; } = null!;
 
     }
 }

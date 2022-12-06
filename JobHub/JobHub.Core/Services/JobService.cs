@@ -172,5 +172,16 @@ namespace JobHub.Core.Services
                     Company = j.Company.Name
                 }).FirstAsync();
         }
+
+        public async Task UploadFile(UploadFileModel model)
+        {
+            var file = new CvFile()
+            {
+                Name = model.Name,
+                UserId = model.UserId
+            };
+            await repo.AddAsync(file);
+            await repo.SaveChangesAsync();
+        }
     }
 }

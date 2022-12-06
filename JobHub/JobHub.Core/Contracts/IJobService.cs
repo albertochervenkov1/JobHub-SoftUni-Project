@@ -27,5 +27,7 @@ namespace JobHub.Core.Contracts
             int jobPerPages=10);
 
         Task<AllJobsViewModel> DetailedJobById(int id);
+
+        Task UploadFile(UploadFileModel model);
     }
 }

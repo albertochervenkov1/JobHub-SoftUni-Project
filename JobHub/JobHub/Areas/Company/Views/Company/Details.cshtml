@@ -6,7 +6,7 @@
 
 
 <div style="display: inline">
-    <a class="btn btn-secondary btn-lg" asp-controller="Company" asp-action="BackToCompanies"
+    <a class="btn btn-secondary btn-lg" asp-area="Company" asp-controller="Company" asp-action="BackToCompanies"
        >Back to My Companies</a>
     <h2 class="text-center">@ViewBag.Title</h2>
 </div>
@@ -22,7 +22,7 @@
             <p style="font-size:25px;"><u>@Model.Name</u></p>
             <p>@Model.Description</p>
             <div class="form-inline">
-                <a class="btn btn-warning" asp-controller="Company" asp-action="Edit"
+                <a class="btn btn-warning" asp-area="Company" asp-controller="Company" asp-action="Edit"
                    asp-route-id="@Model.Id">Edit</a>
                 
             </div>
@@ -39,7 +39,7 @@
         <div class="card col-4 border-0" style="align-items: center">
             <h2>Add Job</h2>
             
-            <a asp-controller="Job" asp-action="Add"
+            <a asp-area="Company" asp-controller="Job" asp-action="Add"
                asp-route-id="@Model.Id"> <img class="card-img-top" style="width: 18rem;"
                     src="~/job.png" alt="Job Image"> 
             </a>

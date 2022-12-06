@@ -2,12 +2,9 @@
 using JobHub.Core.Contracts;
 using JobHub.Core.Models.Company;
 using JobHub.Extensions;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
-
-namespace JobHub.Controllers
+namespace JobHub.Areas.Company.Controllers
 {
     public class CompanyController : BaseController
     {
@@ -62,7 +59,7 @@ namespace JobHub.Controllers
 
             await companyService.Create(model, userId);
 
-            return RedirectToAction("Index", "Company");
+            return RedirectToAction(nameof(Index));
         }
 
 
