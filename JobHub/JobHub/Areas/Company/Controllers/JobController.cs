@@ -120,5 +120,12 @@ namespace JobHub.Areas.Company.Controllers
         {
             return RedirectToAction("Details", "Company", new { id });
         }
+
+        [HttpGet]
+        public async Task<FileResult> DownLoadFile(int id)
+        {
+            var file = await jobService.FileById(id);
+            return File(file.FileContext, "application/pdf");
+        }
     }
 }

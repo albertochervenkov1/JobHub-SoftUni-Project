@@ -191,9 +191,12 @@
         <div class="control">
 	
             <!-- Start Button buying -->
-            <button class="btn2">
-                <span class="buy">Apply</span>
-            </button>
+			<form asp-controller="Job" asp-action="UploadFile" asp-route-id="@Model.Id">
+				<button class="btn2">
+                    <span class="buy">Apply</span>
+                </button>
+            </form>
+          
             <!-- End Button buying -->
 	
         </div>
@@ -223,9 +226,6 @@
 </div>
 
 
-<form method="post" enctype="multipart/form-data" asp-controller="Job" asp-action="UploadFile">
-    <input type="file" name="postedFile" />
-    <input type="submit" id="btnUpload" value="Upload" />
-</form>
+
 
 

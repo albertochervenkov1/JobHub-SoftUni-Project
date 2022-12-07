@@ -51,13 +51,13 @@ namespace JobHub.Controllers
 
 
         [HttpGet]
-        public IActionResult UploadFile()
+        public IActionResult UploadFile(int id)
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadFile(UploadFileViewModel model)
+        public async Task<IActionResult> UploadFile(UploadFileViewModel model,int id)
         {
             if (!ModelState.IsValid)
             {
@@ -73,8 +73,10 @@ namespace JobHub.Controllers
             // you intended to store it
             var newFileModel = new UploadFileModel()
             {
-                Name = buffer,
-                UserId = User.Id()
+                Content = buffer,
+                UserId = User.Id(), 
+                JobId=id,
+                Name = buffer.ToString()
             };
 
             await jobService.UploadFile(newFileModel);
@@ -91,5 +93,7 @@ namespace JobHub.Controllers
             }
         }
 
+
+        
     }
 }

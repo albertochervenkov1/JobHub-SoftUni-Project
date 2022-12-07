@@ -82,6 +82,7 @@ namespace JobHub.Core.Services
                     CompanyId = j.CompanyId,
                     CategoryId = j.CategoryId,
                     City = j.City,
+                    Files = j.Files
                 }).FirstAsync();
         }
 
@@ -177,11 +178,20 @@ namespace JobHub.Core.Services
         {
             var file = new CvFile()
             {
+                FileContext = model.Content,
                 Name = model.Name,
-                UserId = model.UserId
+                UserId = model.UserId,
+                JobId = model.JobId
             };
             await repo.AddAsync(file);
             await repo.SaveChangesAsync();
+        }
+
+        public async Task<CvFile> FileById(int id)
+        {
+            return await repo.AllReadonly<CvFile>()
+                .Where(f => f.Id == id)
+                .FirstAsync();
         }
     }
 }

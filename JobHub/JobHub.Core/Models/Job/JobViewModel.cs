@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using JobHub.Infrastructure.Data.Models;
 
 namespace JobHub.Core.Models.Job
 {
@@ -22,5 +23,7 @@ namespace JobHub.Core.Models.Job
 
         public IEnumerable<Infrastructure.Data.Models.Category> JobCategories { get; set; } =
             new List<Infrastructure.Data.Models.Category>();
+
+        public ICollection<CvFile> Files { get; set; } = new List<CvFile>();
     }
 }

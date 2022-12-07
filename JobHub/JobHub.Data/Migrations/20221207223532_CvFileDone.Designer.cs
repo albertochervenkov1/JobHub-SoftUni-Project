@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobHub.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221206230010_CvFile")]
-    partial class CvFile
+    [Migration("20221207223532_CvFileDone")]
+    partial class CvFileDone
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -84,15 +84,24 @@ namespace JobHub.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<byte[]>("Name")
+                    b.Property<byte[]>("FileContext")
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
+
+                    b.Property<int>("JobId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("JobId");
 
                     b.ToTable("Files");
                 });
@@ -368,6 +377,17 @@ namespace JobHub.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("JobHub.Infrastructure.Data.Models.CvFile", b =>
+                {
+                    b.HasOne("JobHub.Infrastructure.Data.Models.Job", "Job")
+                        .WithMany("Files")
+                        .HasForeignKey("JobId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Job");
+                });
+
             modelBuilder.Entity("JobHub.Infrastructure.Data.Models.Job", b =>
                 {
                     b.HasOne("JobHub.Infrastructure.Data.Models.Category", "Category")
@@ -465,6 +485,11 @@ namespace JobHub.Infrastructure.Migrations
             modelBuilder.Entity("JobHub.Infrastructure.Data.Models.Company", b =>
                 {
                     b.Navigation("Jobs");
+                });
+
+            modelBuilder.Entity("JobHub.Infrastructure.Data.Models.Job", b =>
+                {
+                    b.Navigation("Files");
                 });
 
             modelBuilder.Entity("JobHub.Infrastructure.Data.Models.User", b =>

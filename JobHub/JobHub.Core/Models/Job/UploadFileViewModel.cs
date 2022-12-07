@@ -11,7 +11,9 @@ namespace JobHub.Core.Models.Job
 {
     public class UploadFileViewModel
     {
+        public int JobId { get; set; }
         [Required] 
         public IFormFile File { get; set; } = null!;
+        
     }
 }

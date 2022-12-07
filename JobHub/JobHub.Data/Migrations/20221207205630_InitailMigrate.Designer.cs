@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobHub.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221122211940_EntetiesAdded")]
-    partial class EntetiesAdded
+    [Migration("20221207205630_InitailMigrate")]
+    partial class InitailMigrate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -57,6 +57,10 @@ namespace JobHub.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -72,6 +76,32 @@ namespace JobHub.Infrastructure.Migrations
                     b.ToTable("Companies");
                 });
 
+            modelBuilder.Entity("JobHub.Infrastructure.Data.Models.CvFile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("JobId")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("Name")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("JobId");
+
+                    b.ToTable("Files");
+                });
+
             modelBuilder.Entity("JobHub.Infrastructure.Data.Models.Job", b =>
                 {
                     b.Property<int>("Id")
@@ -82,6 +112,11 @@ namespace JobHub.Infrastructure.Migrations
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
@@ -338,6 +373,17 @@ namespace JobHub.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("JobHub.Infrastructure.Data.Models.CvFile", b =>
+                {
+                    b.HasOne("JobHub.Infrastructure.Data.Models.Job", "Job")
+                        .WithMany("Files")
+                        .HasForeignKey("JobId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Job");
+                });
+
             modelBuilder.Entity("JobHub.Infrastructure.Data.Models.Job", b =>
                 {
                     b.HasOne("JobHub.Infrastructure.Data.Models.Category", "Category")
@@ -435,6 +481,11 @@ namespace JobHub.Infrastructure.Migrations
             modelBuilder.Entity("JobHub.Infrastructure.Data.Models.Company", b =>
                 {
                     b.Navigation("Jobs");
+                });
+
+            modelBuilder.Entity("JobHub.Infrastructure.Data.Models.Job", b =>
+                {
+                    b.Navigation("Files");
                 });
 
             modelBuilder.Entity("JobHub.Infrastructure.Data.Models.User", b =>

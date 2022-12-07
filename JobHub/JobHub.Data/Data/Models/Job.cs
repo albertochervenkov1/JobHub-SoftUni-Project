@@ -11,6 +11,10 @@ namespace JobHub.Infrastructure.Data.Models
 {
     public  class Job
     {
+        public Job()
+        {
+            Files = new List<CvFile>();
+        }
         [Key]
         public int Id { get; set; }
 
@@ -39,6 +43,7 @@ namespace JobHub.Infrastructure.Data.Models
         [ForeignKey(nameof(CompanyId))] 
         public Company Company { get; set; } = null!;
 
+        public ICollection<CvFile> Files { get; set; }
 
     }
 }

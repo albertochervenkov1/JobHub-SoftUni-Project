@@ -24,6 +24,7 @@ namespace JobHub.Infrastructure.Data
                     x.UserId,
                     x.CompanyId
                 });
+            
 
             base.OnModelCreating(builder);
         }

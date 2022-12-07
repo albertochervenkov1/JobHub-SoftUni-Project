@@ -29,5 +29,6 @@ namespace JobHub.Core.Contracts
         Task<AllJobsViewModel> DetailedJobById(int id);
 
         Task UploadFile(UploadFileModel model);
+        Task<CvFile> FileById(int id);
     }
 }
