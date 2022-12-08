@@ -13,7 +13,7 @@ namespace JobHub.Core.Models.Company
         [Required]
         [StringLength(CompanyConstraints.NAME_MAX_LENGTH)]
         public string Name { get; set; } = null!;
-        public string? Address { get; set; }
+        public string? City { get; set; }
 
         [Required]
         [StringLength(CompanyConstraints.PHONE_NUMBER_MAX_LENGTH, MinimumLength = CompanyConstraints.PHONE_NUMBER_MIN_LENGTH)]

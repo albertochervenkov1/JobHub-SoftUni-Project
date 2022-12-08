@@ -36,7 +36,7 @@ namespace JobHub.Core.Services
             var company = new Company()
             {
                 Name = model.Name,
-                Address = model.Address,
+                City = model.City,
                 PhoneNumber = model.PhoneNumber,
                 Description = model.Description,
                 Email = model.Email
@@ -88,7 +88,7 @@ namespace JobHub.Core.Services
                 {
                     Name = c.Name,
                     Description = c.Description,
-                    Address = c.Address,
+                    Address = c.City,
                     Id = c.Id,
                     Jobs = c.Jobs,
                     Email = c.Email,
@@ -103,7 +103,7 @@ namespace JobHub.Core.Services
             company.Name = model.Name;
             company.Description = model.Description;
             company.PhoneNumber = model.PhoneNumber;
-            company.Address = model.Address;
+            company.City = model.Address;
             company.Email=model.Email;
 
             await repo.SaveChangesAsync();

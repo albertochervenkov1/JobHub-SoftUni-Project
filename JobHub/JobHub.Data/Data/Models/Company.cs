@@ -26,7 +26,8 @@ namespace JobHub.Infrastructure.Data.Models
         [EmailAddress]
         public string Email { get; set; }
 
-        public string? Address { get; set; }
+        [Required]
+        public string City { get; set; } = null!;
 
         [DataType(DataType.PhoneNumber)]
         [StringLength(CompanyConstraints.PHONE_NUMBER_MAX_LENGTH)]
