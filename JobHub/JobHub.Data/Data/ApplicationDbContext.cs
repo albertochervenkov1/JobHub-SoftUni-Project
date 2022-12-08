@@ -6,9 +6,11 @@ namespace JobHub.Infrastructure.Data
 {
     public class ApplicationDbContext : IdentityDbContext<User>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        private readonly bool isSeed;
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options,bool isSeed=true)
             : base(options)
         {
+            this.isSeed = isSeed;
         }
 
         public DbSet<Company> Companies { get; set; } = null!;

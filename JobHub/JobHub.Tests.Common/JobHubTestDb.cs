@@ -11,7 +11,10 @@ namespace JobHub.Tests.Common
 {
     public  class JobHubTestDb
     {
-
+        public JobHubTestDb(ApplicationDbContext dbContext)
+        {
+            SeedDatabase(dbContext);
+        }
 
         public Company FirstCompany { get; set; } = null!;
         public Company SecondCompany { get; set; } = null!;
@@ -108,6 +111,8 @@ namespace JobHub.Tests.Common
                 CreatedDate = DateTime.ParseExact(DateTime.Now.ToString(CultureInfo.InvariantCulture), "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture)
             };
             dbContext.Add(ThirdJob);
+
+            dbContext.SaveChanges();
         }
     }
 }
