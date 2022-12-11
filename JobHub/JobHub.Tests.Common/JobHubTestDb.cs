@@ -11,6 +11,7 @@ namespace JobHub.Tests.Common
 {
     public  class JobHubTestDb
     {
+        protected List<CvFile> list = new List<CvFile>();
         public JobHubTestDb(ApplicationDbContext dbContext)
         {
             SeedDatabase(dbContext);
@@ -28,37 +29,12 @@ namespace JobHub.Tests.Common
 
         private void SeedDatabase(ApplicationDbContext dbContext)
         {
-            this.FirstCompany = new Company
-            {
-                Id = 1,
-                Name = "First Company",
-                City = "Sofia",
-                Description="First Company description",
-                Email="company1@gmail.com",
-                PhoneNumber="+359891111111",
-                Jobs=new List<Job>() { FirstJob,ThirdJob}
-            };
-            dbContext.Add(this.FirstCompany);
-
-            this.SecondCompany = new Company
-            {
-                Id = 1,
-                Name = "Second Company",
-                City = "Blagoevgrad",
-                Description = "Second Company description",
-                Email = "company2@gmail.com",
-                PhoneNumber = "+359892222222",
-                Jobs=new List<Job>() { SecondJob}
-            };
-            dbContext.Add(SecondCompany);
-
             SoftwareCategory = new Category
             {
                 Id = 1,
                 Label = "Software"
             };
             dbContext.Add(SoftwareCategory);
-
             DesignCategory = new Category
             {
                 Id = 2,
@@ -75,9 +51,9 @@ namespace JobHub.Tests.Common
                 Salary = 1000,
                 CategoryId = SoftwareCategory.Id,
                 Category = SoftwareCategory,
-                CompanyId = FirstCompany.Id,
-                Company = FirstCompany,
-                CreatedDate= DateTime.ParseExact(DateTime.Now.ToString(CultureInfo.InvariantCulture), "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture)
+                CompanyId = 1,
+                CreatedDate = DateTime.ParseExact(DateTime.Now.ToString(CultureInfo.InvariantCulture), "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture),
+                Files =list
             };
             dbContext.Add(FirstJob);
 
@@ -90,9 +66,9 @@ namespace JobHub.Tests.Common
                 Salary = 2000,
                 CategoryId = DesignCategory.Id,
                 Category = DesignCategory,
-                CompanyId = SecondCompany.Id,
-                Company = SecondCompany,
-                CreatedDate = DateTime.ParseExact(DateTime.Now.ToString(CultureInfo.InvariantCulture), "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture)
+                CompanyId = 2,
+                CreatedDate = DateTime.ParseExact(DateTime.Now.ToString(CultureInfo.InvariantCulture), "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture),
+                Files = list
             };
 
             dbContext.Add(SecondJob);
@@ -106,12 +82,39 @@ namespace JobHub.Tests.Common
                 Salary = 3000,
                 CategoryId = DesignCategory.Id,
                 Category = DesignCategory,
-                CompanyId = FirstCompany.Id,
-                Company = FirstCompany,
+                CompanyId = 1,
                 CreatedDate = DateTime.ParseExact(DateTime.Now.ToString(CultureInfo.InvariantCulture), "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture)
             };
             dbContext.Add(ThirdJob);
+            
 
+            
+
+            this.FirstCompany = new Company
+            {
+                Id = 1,
+                Name = "First Company",
+                City = "Sofia",
+                Description="First Company description",
+                Email="company1@gmail.com",
+                PhoneNumber="+359891111111",
+                Jobs=new List<Job>() { FirstJob,ThirdJob}
+            };
+            dbContext.Add(this.FirstCompany);
+
+            this.SecondCompany = new Company
+            {
+                Id = 2,
+                Name = "Second Company",
+                City = "Blagoevgrad",
+                Description = "Second Company description",
+                Email = "company2@gmail.com",
+                PhoneNumber = "+359892222222",
+                Jobs=new List<Job>() { SecondJob}
+            };
+            dbContext.Add(SecondCompany);
+
+            
             dbContext.SaveChanges();
         }
     }

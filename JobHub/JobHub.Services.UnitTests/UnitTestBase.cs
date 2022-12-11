@@ -22,8 +22,7 @@ namespace JobHub.Services.UnitTests
             this.dbContext = DatabaseMock.Instance;
             this.testDb = new JobHubTestDb(this.dbContext);
             this.repo = new RepositoryMock(this.dbContext);
-
-
+            
         }
         [OneTimeTearDown]
         public void OneTimeTearDown()
