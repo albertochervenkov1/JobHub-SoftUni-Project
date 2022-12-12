@@ -26,7 +26,6 @@ namespace JobHub.Core.Services
         public async Task<IEnumerable<Category>> AllCategories()
         {
             return await repo.AllReadonly<Category>().ToListAsync();
-
         }
 
         public async Task<IEnumerable<string>> AllCategoriesLabels()
