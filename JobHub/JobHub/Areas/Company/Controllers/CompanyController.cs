@@ -78,7 +78,7 @@ namespace JobHub.Areas.Company.Controllers
             {
                 Id = company.Id,
                 Name = company.Name,
-                Address = company.Address,
+                City = company.City,
                 PhoneNumber = company.PhoneNumber,
                 Description = company.Description,
                 Email = company.Email

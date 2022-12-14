@@ -1,5 +1,7 @@
 ﻿using JobHub.Infrastructure.Data;
 using JobHub.Infrastructure.Data.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -26,9 +28,32 @@ namespace JobHub.Tests.Common
         public Job FirstJob { get; set; } = null!;
         public Job SecondJob { get; set; } = null!;
         public Job ThirdJob { get; set; } = null!;
-
+        public User User { get; set; }
         private void SeedDatabase(ApplicationDbContext dbContext)
         {
+            //UserOnlyStore<User, ApplicationDbContext, Guid> userStore =
+            //    new UserOnlyStore<User, ApplicationDbContext, Guid>(dbContext);
+            //PasswordHasher<User> hasher = new PasswordHasher<User>();
+            //UpperInvariantLookupNormalizer normalizer = new UpperInvariantLookupNormalizer();
+            //UserManager<User> userManager = new UserManager<User>(
+            //    userStore,
+            //    null,
+            //    hasher,
+            //    null, null,
+            //    normalizer,
+            //    null, null, null);
+
+
+            //User = new User()
+            //{
+            //    Id = Guid.NewGuid().ToString(),
+            //    FirstName = "User First Name",
+            //    LastName = "User Last Name",
+            //    Email = "user@example.com",
+            //    NormalizedEmail = "USER@EXAMPLE.COM",
+            //};
+            //userManager.CreateAsync(this.User, "guestPass")
+            //    .Wait();
             SoftwareCategory = new Category
             {
                 Id = 1,

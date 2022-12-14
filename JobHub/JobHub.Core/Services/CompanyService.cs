@@ -88,7 +88,7 @@ namespace JobHub.Core.Services
                 {
                     Name = c.Name,
                     Description = c.Description,
-                    Address = c.City,
+                    City = c.City,
                     Id = c.Id,
                     Jobs = c.Jobs,
                     Email = c.Email,
@@ -103,7 +103,7 @@ namespace JobHub.Core.Services
             company.Name = model.Name;
             company.Description = model.Description;
             company.PhoneNumber = model.PhoneNumber;
-            company.City = model.Address;
+            company.City = model.City;
             company.Email=model.Email;
 
             await repo.SaveChangesAsync();
