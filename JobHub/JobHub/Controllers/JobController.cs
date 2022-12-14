@@ -10,7 +10,7 @@ using System.IO;
 
 namespace JobHub.Controllers
 {
-    public class JobController : BaseController
+    public class JobController : Controller
     {
         private readonly IJobService jobService;
         private readonly ICompanyService companyService;
@@ -19,10 +19,6 @@ namespace JobHub.Controllers
         {
             jobService = _jobService;
             companyService = _companyService;
-        }
-        public IActionResult Index()
-        {
-            return View();
         }
 
         [HttpGet]

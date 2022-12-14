@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace JobHub.Controllers
+namespace JobHub.Areas.Company.Controllers
 {
     public class UserController : BaseController
     {
@@ -46,13 +46,13 @@ namespace JobHub.Controllers
             };
 
             var result = await userManager.CreateAsync(user, model.Password);
-           
+
 
             if (result.Succeeded)
             {
                 await signInManager.SignInAsync(user, isPersistent: false);
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Company");
             }
 
             foreach (var item in result.Errors)
@@ -70,7 +70,7 @@ namespace JobHub.Controllers
         {
             if (User?.Identity?.IsAuthenticated ?? false)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Company");
             }
 
             var model = new LoginViewModel();
@@ -95,7 +95,7 @@ namespace JobHub.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Company");
                 }
             }
 
@@ -104,11 +104,12 @@ namespace JobHub.Controllers
             return View(model);
         }
 
+        [Route("default")]
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home",new {area=""});
         }
     }
 }
