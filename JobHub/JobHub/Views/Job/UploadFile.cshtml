@@ -1,11 +1,33 @@
 ﻿@model UploadFileViewModel
-@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    <div>
-        @Html.LabelFor(x => x.File)
-        @Html.TextBoxFor(x => x.File, new { type = "file" })
-        @Html.ValidationMessageFor(x => x.File)
-    </div>
 
-    <button type="submit">Upload</button>
+
+@{
+    ViewData["Title"] = "Create";
 }
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="UploadFile" asp-controller="Job" enctype="multipart/form-data" method="post">
+            <div asp-validation-summary="All" class="text-danger"  ></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+               @* <span asp-validation-for="Name" class="text-danger"></span>*@
+            </div>
+            <div class="form-group">
+                <label asp-for="formFile" class="control-label">Upload File</label>
+                <input asp-for="formFile" class="form-control" />
+                @*<span asp-validation-for="formFile" class="text-danger"></span>*@
+            </div>
+            @* <div class="form-group">
+                <label asp-for="fromFileUrl" class="control-label"></label>
+                <input asp-for="fromFileUrl" class="form-control" />
+                <span asp-validation-for="fromFileUrl" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <input type="submit" value="Add" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+

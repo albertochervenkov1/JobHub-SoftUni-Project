@@ -177,9 +177,8 @@ namespace JobHub.Core.Services
         {
             var file = new CvFile()
             {
-                FileContext = model.Content,
+                FileContext = model.MemoryStream.ToArray(),
                 Name = model.Name,
-                UserId = model.UserId,
                 JobId = model.JobId
             };
             await repo.AddAsync(file);

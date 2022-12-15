@@ -6,14 +6,15 @@ using System.Text;
 using System.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JobHub.Core.Models.Job
 {
     public class UploadFileViewModel
     {
-        public int JobId { get; set; }
-        [Required] 
-        public IFormFile File { get; set; } = null!;
         
+        public string Name { get; set; }
+        [NotMapped]
+        public IFormFile formFile { get; set; }
     }
 }

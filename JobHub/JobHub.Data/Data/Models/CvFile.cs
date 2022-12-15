@@ -15,8 +15,7 @@ namespace JobHub.Infrastructure.Data.Models
 
         public string Name { get; set; } = null!;
         public byte[] FileContext { get; set; } = null!;
-        public string UserId { get; set; } = null!;
-
+        
         public int JobId { get; set; }
 
         [ForeignKey(nameof(JobId))] 

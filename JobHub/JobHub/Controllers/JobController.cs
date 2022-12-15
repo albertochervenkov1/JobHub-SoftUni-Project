@@ -6,7 +6,9 @@ using JobHub.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using System.IO;
+using System.IO.Compression;
 
 namespace JobHub.Controllers
 {
@@ -49,30 +51,35 @@ namespace JobHub.Controllers
         [HttpGet]
         public IActionResult UploadFile(int id)
         {
-            return View();
+            UploadFileViewModel model = new UploadFileViewModel();
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadFile(UploadFileViewModel model,int id)
+        public async Task<IActionResult> UploadFile([Bind("Name,fromFileUrl,formFile")] UploadFileViewModel model,int id)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            var file = model.File;
-            byte[] buffer = new byte[file.Length];
-            var resultInBytes = ConvertToBytes(file);
-            Array.Copy(resultInBytes, buffer, resultInBytes.Length);
+            //var file = model.File;
+            //byte[] buffer = new byte[file.Length];
+            //var resultInBytes = ConvertToBytes(file);
+            //Array.Copy(resultInBytes, buffer, resultInBytes.Length);
+            MemoryStream ms = new MemoryStream();
+            using (ms)
+            {
+                await model.formFile.CopyToAsync(ms);
+            }
+
+
             
-            // now you could pass the byte array to your model and store wherever 
-            // you intended to store it
             var newFileModel = new UploadFileModel()
             {
-                Content = buffer,
-                UserId = User.Id(), 
-                JobId=id,
-                Name = buffer.ToString()
+                Name = model.formFile.FileName,
+                MemoryStream = ms,
+                JobId = id,
             };
 
             await jobService.UploadFile(newFileModel);
@@ -80,6 +87,7 @@ namespace JobHub.Controllers
 
             return Content("Thanks for uploading the file");
         }
+        
         private byte[] ConvertToBytes(IFormFile file)
         {
             using (var memoryStream = new MemoryStream())

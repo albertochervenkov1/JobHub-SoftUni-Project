@@ -125,7 +125,13 @@ namespace JobHub.Areas.Company.Controllers
         public async Task<FileResult> DownLoadFile(int id)
         {
             var file = await jobService.FileById(id);
-            return File(file.FileContext, "application/pdf");
+            var result = new FileContentResult(file.FileContext, "application/pdf")
+            {
+                FileDownloadName = file.Name
+            };
+
+            // Return the FileContentResult object.
+            return result;
         }
     }
 }

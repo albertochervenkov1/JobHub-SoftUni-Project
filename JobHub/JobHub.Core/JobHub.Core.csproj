@@ -21,4 +21,8 @@
     <ProjectReference Include="..\JobHub.Data\JobHub.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\CvFile\" />
+  </ItemGroup>
+
 </Project>

@@ -24,6 +24,6 @@ namespace JobHub.Core.Models.Job
         public IEnumerable<Infrastructure.Data.Models.Category> JobCategories { get; set; } =
             new List<Infrastructure.Data.Models.Category>();
 
-        public ICollection<CvFile> Files { get; set; } = new List<CvFile>();
+        public ICollection<Infrastructure.Data.Models.CvFile> Files { get; set; } = new List<Infrastructure.Data.Models.CvFile>();
     }
 }

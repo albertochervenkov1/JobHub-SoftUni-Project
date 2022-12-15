@@ -12,8 +12,7 @@ namespace JobHub.Core.Models.Job
         public string Name { get; set; }
         public byte[] Content { get; set; } = null!;
         
-        public string UserId { get; set; } = null!;
-
         public int JobId { get; set; }
+        public MemoryStream MemoryStream { get; set; }
     }
 }
