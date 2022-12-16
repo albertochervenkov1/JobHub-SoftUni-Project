@@ -1,5 +1,6 @@
 using JobHub.Core.Contracts;
 using JobHub.Core.Services;
+using JobHub.Extensions;
 using JobHub.Infrastructure.Data;
 using JobHub.Infrastructure.Data.Common;
 using JobHub.Infrastructure.Data.Models;
@@ -25,11 +26,7 @@ builder.Services.AddDefaultIdentity<User>(options =>
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddScoped<IRepository, Repository>();
-builder.Services.AddScoped<ICategoryService, CategoryService>();
-builder.Services.AddScoped<ICompanyService, CompanyService>();
-builder.Services.AddScoped<IJobService, JobService>();
-builder.Services.AddScoped<IFileService, FileService>();
+builder.Services.AddApplicationServices();
 
 var app = builder.Build();
 
