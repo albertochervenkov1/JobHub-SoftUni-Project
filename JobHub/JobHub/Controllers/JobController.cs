@@ -47,56 +47,7 @@ namespace JobHub.Controllers
             return View(model);
         }
 
-
-        [HttpGet]
-        public IActionResult UploadFile(int id)
-        {
-            UploadFileViewModel model = new UploadFileViewModel();
-            return View(model);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> UploadFile([Bind("Name,fromFileUrl,formFile")] UploadFileViewModel model,int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            //var file = model.File;
-            //byte[] buffer = new byte[file.Length];
-            //var resultInBytes = ConvertToBytes(file);
-            //Array.Copy(resultInBytes, buffer, resultInBytes.Length);
-            MemoryStream ms = new MemoryStream();
-            using (ms)
-            {
-                await model.formFile.CopyToAsync(ms);
-            }
-
-
-            
-            var newFileModel = new UploadFileModel()
-            {
-                Name = model.formFile.FileName,
-                MemoryStream = ms,
-                JobId = id,
-            };
-
-            await jobService.UploadFile(newFileModel);
-
-
-            return Content("Thanks for uploading the file");
-        }
         
-        private byte[] ConvertToBytes(IFormFile file)
-        {
-            using (var memoryStream = new MemoryStream())
-            {
-                file.OpenReadStream().CopyTo(memoryStream);
-                return memoryStream.ToArray();
-            }
-        }
-
 
         
     }
