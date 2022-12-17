@@ -37,7 +37,7 @@ namespace JobHub.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("JobHub.Infrastructure.Data.Models.Company", b =>
@@ -72,7 +72,7 @@ namespace JobHub.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Companies");
+                    b.ToTable("Companies", (string)null);
                 });
 
             modelBuilder.Entity("JobHub.Infrastructure.Data.Models.CvFile", b =>
@@ -98,7 +98,7 @@ namespace JobHub.Infrastructure.Migrations
 
                     b.HasIndex("JobId");
 
-                    b.ToTable("Files");
+                    b.ToTable("Files", (string)null);
                 });
 
             modelBuilder.Entity("JobHub.Infrastructure.Data.Models.Job", b =>
@@ -142,7 +142,7 @@ namespace JobHub.Infrastructure.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("Jobs");
+                    b.ToTable("Jobs", (string)null);
                 });
 
             modelBuilder.Entity("JobHub.Infrastructure.Data.Models.User", b =>
@@ -232,7 +232,7 @@ namespace JobHub.Infrastructure.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("UserCompany");
+                    b.ToTable("UserCompany", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

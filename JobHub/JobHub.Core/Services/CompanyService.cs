@@ -114,5 +114,20 @@ namespace JobHub.Core.Services
             return await repo.All<Company>()
                 .AnyAsync(a => a.Id==id);
         }
+
+        public async Task<IEnumerable<CompanyViewModel>> AllCompanies()
+        {
+            return  repo.AllReadonly<Company>()
+                .Select(c=>new CompanyViewModel()
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    City = c.City,
+                    Email = c.Description,
+                    PhoneNumber = c.PhoneNumber,
+                    Description = c.Description,
+                    Jobs = c.Jobs
+                });
+        }
     }
 }

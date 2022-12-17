@@ -4,18 +4,21 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace JobHub.Areas.Company.Controllers
+namespace JobHub.Controllers
 {
     public class UserController : BaseController
     {
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
+        private readonly RoleManager<IdentityRole> roleManager;
 
         public UserController(UserManager<User> _userManager,
-            SignInManager<User> _signInManager)
+            SignInManager<User> _signInManager,
+            RoleManager<IdentityRole> _roleManager)
         {
             userManager = _userManager;
             signInManager = _signInManager;
+            roleManager = _roleManager;
         }
 
 
@@ -52,7 +55,7 @@ namespace JobHub.Areas.Company.Controllers
             {
                 await signInManager.SignInAsync(user, isPersistent: false);
 
-                return RedirectToAction("Index", "Company");
+                return RedirectToAction("Index", "Company", new { area = "Company" });
             }
 
             foreach (var item in result.Errors)
@@ -70,7 +73,7 @@ namespace JobHub.Areas.Company.Controllers
         {
             if (User?.Identity?.IsAuthenticated ?? false)
             {
-                return RedirectToAction("Index", "Company");
+                return RedirectToAction("Index", "Company", new { area = "Company" });
             }
 
             var model = new LoginViewModel();
@@ -92,10 +95,15 @@ namespace JobHub.Areas.Company.Controllers
             if (user != null)
             {
                 var result = await signInManager.PasswordSignInAsync(user, model.Password, false, false);
+                
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Company");
+                    if (await userManager.IsInRoleAsync(user,"Admin"))
+                    {
+                        return RedirectToAction("Index","Admin", new { area = "Admin" });
+                    }
+                    return RedirectToAction("Index", "Company",new { area = "Company" });
                 }
             }
 
@@ -109,7 +117,7 @@ namespace JobHub.Areas.Company.Controllers
         {
             await signInManager.SignOutAsync();
 
-            return RedirectToAction("Index", "Home",new {area=""});
+            return RedirectToAction("Index", "Home", new { area = "" });
         }
     }
 }

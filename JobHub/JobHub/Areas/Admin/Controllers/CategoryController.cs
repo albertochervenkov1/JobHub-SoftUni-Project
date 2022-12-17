@@ -1,10 +1,8 @@
 ﻿using JobHub.Core.Contracts;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System.Data;
 using JobHub.Core.Models.Category;
+using Microsoft.AspNetCore.Mvc;
 
-namespace JobHub.Controllers
+namespace JobHub.Areas.Admin.Controllers
 {
     public class CategoryController : BaseController
     {

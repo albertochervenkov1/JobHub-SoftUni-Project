@@ -15,5 +15,7 @@ namespace JobHub.Core.Contracts
         Task<CompanyViewModel> CompanyDetailsById(int id);
         Task Edit(int id, CompanyViewModel model);
         Task<bool> CompanyExists(int id);
+
+        Task<IEnumerable<CompanyViewModel>> AllCompanies();
     }
 }
