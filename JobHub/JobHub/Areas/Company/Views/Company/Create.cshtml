@@ -1,4 +1,5 @@
-﻿@model AddCompanyViewModel
+﻿@using JobHub.Core.Constants
+@model AddCompanyViewModel
 
 @{
     ViewBag.Title = "Create Company";
@@ -12,6 +13,10 @@
     <div class="alert alert-danger" role="alert">
         @ViewData.ModelState["Error"].Errors.First().ErrorMessage
     </div>
+}
+@if (this.TempData.ContainsKey(MessageConstant.ErrorMessage))
+{
+    <span class="text-danger mt-3">@this.TempData[MessageConstant.ErrorMessage]</span>
 }
 
 <div class="row">
@@ -28,7 +33,7 @@
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="@Model.City" class="form-label">Address</label>
+                <label asp-for="@Model.City" class="form-label">City</label>
                 <input asp-for="@Model.City" class="form-control" aria-required="false" />
                 <span asp-validation-for="City" class="text-danger"></span>
             </div>

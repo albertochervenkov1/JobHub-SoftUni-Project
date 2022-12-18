@@ -3,9 +3,11 @@ using JobHub.Core.Contracts;
 using JobHub.Core.Models.Company;
 using JobHub.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 
 namespace JobHub.Areas.Company.Controllers
 {
+    
     public class CompanyController : BaseController
     {
         private readonly ICompanyService companyService;
@@ -32,6 +34,7 @@ namespace JobHub.Areas.Company.Controllers
         }
 
         [HttpGet]
+        
         public IActionResult Create()
         {
 
@@ -43,6 +46,7 @@ namespace JobHub.Areas.Company.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(AddCompanyViewModel model)
         {
+            
             var userId = User.Id();
 
             if (!ModelState.IsValid)
@@ -50,11 +54,10 @@ namespace JobHub.Areas.Company.Controllers
                 return View(model);
             }
 
-            if (await companyService.UserWithPhoneNumberExists(model.PhoneNumber))
+            if (await companyService.CompanyWithPhoneNumberExists(model.PhoneNumber))
             {
-                TempData[MessageConstant.ErrorMessage] = "A company with this phone number already exists";
-
-                return RedirectToAction("Index", "Home");
+                TempData[MessageConstant.ErrorMessage] = "A Company with this phone number already exists!";
+                return View(model);
             }
 
             await companyService.Create(model, userId);
@@ -97,6 +100,11 @@ namespace JobHub.Areas.Company.Controllers
 
             if (ModelState.IsValid == false)
             {
+                return View(model);
+            }
+            if (await companyService.CompanyWithPhoneNumberExists(model.PhoneNumber))
+            {
+                TempData[MessageConstant.ErrorMessage] = "A Company with this phone number already exists!";
                 return View(model);
             }
 

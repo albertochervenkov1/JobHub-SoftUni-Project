@@ -4,6 +4,7 @@ using JobHub.Extensions;
 using JobHub.Infrastructure.Data;
 using JobHub.Infrastructure.Data.Common;
 using JobHub.Infrastructure.Data.Models;
+using JobHub.ModelBinders;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,10 +26,14 @@ builder.Services.AddDefaultIdentity<User>(options =>
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddMvcOptions(options =>
+    {
+        options.ModelBinderProviders.Insert(0,new DecimalModelBinderProvider());
+    });
 
 builder.Services.AddApplicationServices();
-
+builder.Services.AddResponseCaching();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

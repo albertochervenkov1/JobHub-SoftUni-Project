@@ -52,7 +52,7 @@ namespace JobHub.Core.Services
             await repo.SaveChangesAsync();
         }
         
-        public async Task<bool> UserWithPhoneNumberExists(string phoneNumber)
+        public async Task<bool> CompanyWithPhoneNumberExists(string phoneNumber)
         {
             return await repo.All<Company>()
                 .AnyAsync(c => c.PhoneNumber == phoneNumber);
