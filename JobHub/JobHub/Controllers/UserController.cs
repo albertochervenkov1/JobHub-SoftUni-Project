@@ -111,8 +111,7 @@ namespace JobHub.Controllers
 
             return View(model);
         }
-
-        [Route("default")]
+        
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();

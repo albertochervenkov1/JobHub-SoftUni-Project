@@ -14,17 +14,17 @@
 </div>
 
 <hr/>
-<div class="text-center row">
+<div class="text-center row justify-content-between">
     @if (!Model.Any())
     {
-        <h2>You do not own companies</h2>
+        <h2>You do not have companies in our system!</h2>
         
     }
     else
     {
         @foreach (var company in Model)
         {
-            <div class="card col-4" style="width: 20rem;">
+            <div class="card col-4 bg-transparent" style="width: 20rem;">
                 <img class="card-img-top" style="width: 18rem;"
                      src="~/companyIcon.png" alt="Company Image">
                 <div class="card-body">
