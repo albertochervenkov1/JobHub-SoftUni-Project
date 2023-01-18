@@ -8,6 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Company\Data\**" />
+    <Compile Remove="Areas\Company\Models\**" />
+    <Content Remove="Areas\Company\Data\**" />
+    <Content Remove="Areas\Company\Models\**" />
+    <EmbeddedResource Remove="Areas\Company\Data\**" />
+    <EmbeddedResource Remove="Areas\Company\Models\**" />
+    <None Remove="Areas\Company\Data\**" />
+    <None Remove="Areas\Company\Models\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\css\login.css" />
   </ItemGroup>
 
@@ -26,8 +37,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Company\Data\" />
-    <Folder Include="Areas\Company\Models\" />
   </ItemGroup>
 
 </Project>

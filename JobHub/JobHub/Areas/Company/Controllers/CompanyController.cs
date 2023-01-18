@@ -86,6 +86,7 @@ namespace JobHub.Areas.Company.Controllers
                 Description = company.Description,
                 Email = company.Email
             };
+            var currentPhoneNumber = model.PhoneNumber;
 
             return View(model);
         }
@@ -102,11 +103,12 @@ namespace JobHub.Areas.Company.Controllers
             {
                 return View(model);
             }
-            if (await companyService.CompanyWithPhoneNumberExists(model.PhoneNumber))
-            {
-                TempData[MessageConstant.ErrorMessage] = "A Company with this phone number already exists!";
-                return View(model);
-            }
+
+            //if (await companyService.CompanyWithPhoneNumberExists(model.PhoneNumber))
+            //{
+            //    TempData[MessageConstant.ErrorMessage] = "A Company with this phone number already exists!";
+            //    return View(model);
+            //}
 
             await companyService.Edit(model.Id, model);
 

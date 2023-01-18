@@ -30,7 +30,7 @@ namespace JobHub.Services.UnitTests
         {
             var phoneNumber = "+359898888888";
 
-            var result = await companyService.UserWithPhoneNumberExists(phoneNumber);
+            var result = await companyService.CompanyWithPhoneNumberExists(phoneNumber);
 
             Assert.That(result, Is.False);
         }
